@@ -21,7 +21,9 @@ class Model:
             CHECKPOINT,
             use_auth_token=AUTH_TOKEN
         )
-        self._model = AutoModelForCausalLM.from_pretrained(CHECKPOINT, use_auth_token=AUTH_TOKEN).to(self.device)
+        self._model = AutoModelForCausalLM.from_pretrained(CHECKPOINT, use_auth_token=AUTH_TOKEN, device_map="auto", offload_folder="offload")
+
+
 
     def predict(self, request: Dict) -> Dict:
         with torch.no_grad():
