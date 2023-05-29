@@ -21,8 +21,12 @@ class Model:
             CHECKPOINT,
             use_auth_token=AUTH_TOKEN
         )
-        self._model = AutoModelForCausalLM.from_pretrained(CHECKPOINT, use_auth_token=AUTH_TOKEN, device_map="auto", offload_folder="offload")
-
+        self._model = AutoModelForCausalLM.from_pretrained(
+            CHECKPOINT,
+            use_auth_token=AUTH_TOKEN,
+            device_map="auto",
+            offload_folder="offload"
+        )
 
 
     def predict(self, request: Dict) -> Dict:
@@ -32,7 +36,6 @@ class Model:
                 max_length = request.get("max_length", DEFAULT_MAX_LENGTH)
                 top_p = request.get("top_p", DEFAULT_TOP_P)
                 encoded_prompt = self._tokenizer(prompt, return_tensors="pt").input_ids
-
 
                 encoded_output = self._model.generate(
                     encoded_prompt,
