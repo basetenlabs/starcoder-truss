@@ -32,15 +32,16 @@ class Model:
     def predict(self, request: Dict) -> Dict:
         with torch.no_grad():
             try:
-                prompt = request["prompt"]
-                max_length = request.get("max_length", DEFAULT_MAX_LENGTH)
-                top_p = request.get("top_p", DEFAULT_TOP_P)
+                prompt = request.pop("prompt")
+                max_length = request.pop("max_length", DEFAULT_MAX_LENGTH)
+                top_p = request.pop("top_p", DEFAULT_TOP_P)
                 encoded_prompt = self._tokenizer(prompt, return_tensors="pt").input_ids
 
                 encoded_output = self._model.generate(
                     encoded_prompt,
                     max_length=max_length,
                     top_p=top_p,
+                    **request
                 )[0]
                 decoded_output = self._tokenizer.decode(
                     encoded_output, skip_special_tokens=True
