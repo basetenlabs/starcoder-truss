@@ -6,12 +6,14 @@ from typing import Dict, List
 CHECKPOINT = "bigcode/starcoder"
 DEFAULT_MAX_LENGTH = 128
 DEFAULT_TOP_P = 0.95
-AUTH_TOKEN = ""
+AUTH_TOKEN = "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"
 
 class Model:
-    def __init__(self, **kwargs) -> None:
-        self._data_dir = kwargs["data_dir"]
-        self._config = kwargs["config"]
+    def __init__(self, data_dir: str, config: Dict, secrets: Dict, **kwargs) -> None:
+        self._data_dir = data_dir
+        self._config = config
+        self._secrets = secrets
+        self._hf_api_key = secrets["hf_api_key"]
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self._tokenizer = None
         self._model = None
@@ -19,11 +21,11 @@ class Model:
     def load(self):
         self._tokenizer = AutoTokenizer.from_pretrained(
             CHECKPOINT,
-            use_auth_token=AUTH_TOKEN
+            use_auth_token=self._hf_api_key
         )
         self._model = AutoModelForCausalLM.from_pretrained(
             CHECKPOINT,
-            use_auth_token=AUTH_TOKEN,
+            use_auth_token=self._hf_api_key,
             device_map="auto",
             offload_folder="offload"
         )

@@ -21,6 +21,7 @@ resources:
   memory: 50Gi
   use_gpu: true
   accelerator: "A100:1"
-secrets: {}
+secrets:
+  hf_api_key: "ENTER HF API KEY HERE"
 system_packages: []
 spec_version: 2.0
