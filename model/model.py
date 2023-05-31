@@ -6,7 +6,6 @@ from typing import Dict, List
 CHECKPOINT = "bigcode/starcoder"
 DEFAULT_MAX_LENGTH = 128
 DEFAULT_TOP_P = 0.95
-AUTH_TOKEN = "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"
 
 class Model:
     def __init__(self, data_dir: str, config: Dict, secrets: Dict, **kwargs) -> None:
