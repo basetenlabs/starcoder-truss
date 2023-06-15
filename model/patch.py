@@ -86,7 +86,7 @@ def get_checkpoint_shard_files(
             )
 
     # Use joblib to download in parallel
-    cached_filenames = Parallel(n_jobs=-1)(
+    cached_filenames = Parallel(n_jobs=4)(
         delayed(load_file_from_url)(shard_filename)
         for shard_filename in shard_filenames
     )
