@@ -16,6 +16,7 @@ requirements:
   - torch
   - transformers
   - accelerate
+  - joblib
 resources:
   cpu: "3"
   memory: 50Gi
