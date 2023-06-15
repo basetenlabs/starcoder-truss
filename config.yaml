@@ -18,8 +18,8 @@ requirements:
   - accelerate
   - joblib
 resources:
-  cpu: "3"
-  memory: 50Gi
+  cpu: "4"
+  memory: 85Gi
   use_gpu: true
   accelerator: "A100:1"
 secrets:
