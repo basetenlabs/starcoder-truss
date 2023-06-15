@@ -1,7 +1,7 @@
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 from typing import Dict, List
-
+from .patch import patch
 
 CHECKPOINT = "bigcode/starcoder"
 DEFAULT_MAX_LENGTH = 128
@@ -18,6 +18,7 @@ class Model:
         self._model = None
 
     def load(self):
+        patch()
         self._tokenizer = AutoTokenizer.from_pretrained(
             CHECKPOINT,
             use_auth_token=self._hf_api_key
